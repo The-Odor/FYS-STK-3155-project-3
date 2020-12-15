@@ -497,26 +497,33 @@ def LogisticClassification(X, z, test=False):
 
 if __name__ == "__main__":
 
+    # CONFIG START
 
-    data, dataTypes, isInputValue = getData()
-
-    # Determines what operations are performed
+    # evaluateOverIterations runs each operations testForAverage times and gives the average score.
     evaluateOverIterations      = False
+
+    # If "evaluateOverIterations" is True, testsForAverage determines the.
+    # amount of iterations are performed for evaluation.
+    testsForAverage = 1000
+
+    # evaluateXParameters runs the given algorithm over a grid-search of parameters and reports the best set.
     evaluateNNParameters        = False
     evaluateRidgeParameters     = False
     evaluateForestParameters    = False
     evaluateLogisticParameters  = False
 
-    # If "evaluateOverIterations" is True, testsForAverage determines the 
-    # amount of iterations are performed for evaluation
-    testsForAverage = 1000
 
-    # Determines whether to print confusion matrix
-    showConfusionMatrix = True
-    showfeatureCorrelation = False
+    # Determines whether to print confusion matrix or the feature correlation tables and histograms.
+    # Confusion matrix will also be taken as an average over testsForAverage times
+    showConfusionMatrix = False
+    showfeatureCorrelation = False # Currently set to save figures as files, see line 149.
 
+    # CONFIG END
 
     # OPERATIONS START
+    data, dataTypes, isInputValue = getData()
+
+
     X = np.array([data[feature] for feature in data if isInputValue[feature]]).T
     z = (np.array([data[feature] for feature in data if not isInputValue[feature]]).T).reshape(X.shape[0], -1)
 
